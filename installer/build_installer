@@ -1,11 +1,27 @@
 #!/usr/bin/python
 
 import os
-from subprocess import check_call
+from subprocess import check_call, Popen, PIPE
 import sys
 
 
-packagemaker = '/Developer/Applications/Utilities/PackageMaker.app/Contents/MacOS/PackageMaker'
+def find_app(name):
+    cmd = Popen(
+        args = (
+            '/usr/bin/mdfind',
+            'kMDItemContentType == "com.apple.application-bundle" && kMDItemFSName = "%s"' % name,
+            ),
+        stdout = PIPE,
+        )
+
+    app_path = cmd.communicate()[0].split('\n')[0]
+    assert cmd.returncode == 0
+    assert app_path
+
+    return app_path
+
+
+packagemaker = find_app('PackageMaker.app') + '/Contents/MacOS/PackageMaker'
 installer_root = '/tmp/mw_installer'
 core_package_name = 'MWorksCoreComponents'
 
