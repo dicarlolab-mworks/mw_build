@@ -121,7 +121,7 @@ def mw_core():
     xcodebuild()
 
 
-@builder
+@builder('mworks/tools/data')
 def mw_datatools():
     for subdir in ('DataFileIndexer', 'MWorksStreamUtilities'):
         with workdir(subdir):
