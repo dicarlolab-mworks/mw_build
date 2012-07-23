@@ -136,6 +136,7 @@ def mw_core_plugins():
     for subdir in ('DriftingGratingStimulus',
                    'HIDPlugin',
                    'NE500',
+                   'ServersideConduit',
                    'SidewinderPlugAndPlayGamepadPlugin'):
         with workdir(subdir):
             xcodebuild()
